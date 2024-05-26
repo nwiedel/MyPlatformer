@@ -23,6 +23,16 @@ public class Player : MonoBehaviour
     /// </summary>
     private float towardsY = 0f;
 
+    /// <summary>
+    /// Zeiger auf die Pysik Komponente.
+    /// </summary>
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     // Update is called once per frame
     private void Update()
     {
