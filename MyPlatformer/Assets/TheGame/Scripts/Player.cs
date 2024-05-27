@@ -13,6 +13,16 @@ public class Player : MonoBehaviour
     public float speed = 0.05f;
 
     /// <summary>
+    /// Der Multiplikator für die Sprungkraft.
+    /// </summary>
+    public float jumpPush = 4f;
+
+    /// <summary>
+    /// Verstärkung der Gravitation, damit die Figur schneller fällt.
+    /// </summary>
+    public float extraGravity = -20f;
+
+    /// <summary>
     /// Das grafische Modell, u.a. für die Drehung in Laufrichtung.
     /// </summary>
     public GameObject model;
@@ -27,6 +37,12 @@ public class Player : MonoBehaviour
     /// Zeiger auf die Pysik Komponente.
     /// </summary>
     private Rigidbody rb;
+
+    /// <summary>
+    /// Ist die Figur gerade auf dem Boden?
+    /// Wenn false, fällt oder sprigt sie.
+    /// </summary>
+    private bool onGround = false;
 
     private void Start()
     {
@@ -52,5 +68,25 @@ public class Player : MonoBehaviour
             model.transform.rotation,
             Quaternion.Euler(0f, towardsY, 0f),
             Time.deltaTime * 10f);
+
+        // Springen
+        RaycastHit hitInfo;
+        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), 
+            Vector3.down, 
+            out hitInfo, 
+            0.1f);
+        if(Input.GetAxis("Jump") > 0 && onGround)
+        {
+            Vector3 power = rb.velocity;
+            power.y = jumpPush;
+            rb.velocity = power;
+        }
+        rb.AddForce(new Vector3(0f, extraGravity, 0f));
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine();
     }
 }
