@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Verstärkung der Gravitation, damit die Figur schneller fällt.
     /// </summary>
-    public float extraGravity = -20f;
+    private float extraGravity = -2f;
 
     /// <summary>
     /// Das grafische Modell, u.a. für die Drehung in Laufrichtung.
@@ -71,11 +71,11 @@ public class Player : MonoBehaviour
 
         // Springen
         RaycastHit hitInfo;
-        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), 
-            Vector3.down, 
-            out hitInfo, 
-            0.1f);
-        if(Input.GetAxis("Jump") > 0 && onGround)
+        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f),
+            Vector3.down,
+            out hitInfo,
+            0.12f);
+        if (Input.GetAxis("Jump") > 0 && onGround)
         {
             Vector3 power = rb.velocity;
             power.y = jumpPush;
@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawLine();
+        Vector3 rayStartPosition = transform.position + (Vector3.up * 0.1f);
+        Gizmos.DrawLine(rayStartPosition, rayStartPosition + Vector3.down * 0.12f);
     }
 }
