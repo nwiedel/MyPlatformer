@@ -39,6 +39,11 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
 
     /// <summary>
+    /// Zeiger auf die Animationskomponente der Spielfigur.
+    /// </summary>
+    private Animator anim;
+
+    /// <summary>
     /// Ist die Figur gerade auf dem Boden?
     /// Wenn false, fällt oder sprigt sie.
     /// </summary>
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -54,6 +60,7 @@ public class Player : MonoBehaviour
     {
         // Speichert den Input
         float horizontalInput = Input.GetAxis("Horizontal");
+        anim.SetFloat("forward", Mathf.Abs(horizontalInput));
 
         // Bewegung
         transform.position += horizontalInput * speed * transform.forward;
@@ -75,6 +82,7 @@ public class Player : MonoBehaviour
             Vector3.down,
             out hitInfo,
             0.12f);
+        anim.SetBool("grounded", onGround);
         if (Input.GetAxis("Jump") > 0 && onGround)
         {
             Vector3 power = rb.velocity;
