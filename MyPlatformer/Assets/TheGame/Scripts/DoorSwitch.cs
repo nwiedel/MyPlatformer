@@ -33,6 +33,21 @@ public class DoorSwitch : MonoBehaviour
         meshRenderer.materials = mats;
     }
 
+    private void Awake()
+    {
+        SaveGameData.onSave += saveme;
+    }
+
+    private void saveme(SaveGameData savegame)
+    {
+
+    }
+
+    private void OnDestroy()
+    {
+        SaveGameData.onSave -= saveme;
+    }
+
     private void OnDrawGizmos()
     {
         if (UnityEditor.Selection.activeGameObject != this.gameObject)

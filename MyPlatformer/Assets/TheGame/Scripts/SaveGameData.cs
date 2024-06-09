@@ -14,6 +14,15 @@ public class SaveGameData
     public Vector3 playerPosition = Vector3.zero;
 
     /// <summary>
+    /// Referenz des Zustandes der Tür.
+    /// </summary>
+    public bool doorIsOpen = false;
+
+    public delegate void SaveHandler(SaveGameData savegame);
+
+    public static event SaveHandler onSave;
+
+    /// <summary>
     /// liefert den Pfad und den Dateinamen der Speicherdatei.
     /// </summary>
     /// <returns>Speicherpfad und Dateiname</returns>
@@ -33,6 +42,9 @@ public class SaveGameData
 
         Player player = Component.FindObjectOfType<Player>();
         playerPosition = player.transform.position;
+
+        if(onSave != null) 
+            onSave(this);
 
         string xml = XML.Save(this);
 
