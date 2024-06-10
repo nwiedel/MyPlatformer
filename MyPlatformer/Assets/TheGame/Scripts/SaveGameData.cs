@@ -21,6 +21,7 @@ public class SaveGameData
     public delegate void SaveHandler(SaveGameData savegame);
 
     public static event SaveHandler onSave;
+    public static event SaveHandler onLoad;
 
     /// <summary>
     /// liefert den Pfad und den Dateinamen der Speicherdatei.
@@ -63,6 +64,8 @@ public class SaveGameData
 
         Player player = Component.FindObjectOfType<Player>();
         player.transform.position = save.playerPosition;
+
+        if (onLoad != null) onLoad(save);
 
         return save;
     }
