@@ -36,7 +36,7 @@ public class DoorSwitch : MonoBehaviour
     private void Awake()
     {
         SaveGameData.onSave += saveme;
-        SaveGameData.onSave += loadme;
+        SaveGameData.onLoad += loadme;
     }
 
     private void saveme(SaveGameData savegame)
@@ -53,7 +53,7 @@ public class DoorSwitch : MonoBehaviour
 
     private void OnDestroy()
     {
-        SaveGameData.onSave -= loadme;
+        SaveGameData.onLoad -= loadme;
         SaveGameData.onSave -= saveme;
     }
 
