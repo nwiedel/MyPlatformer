@@ -7,11 +7,26 @@ using UnityEngine;
 /// </summary>
 public class SaveGameTrigger : MonoBehaviour
 {
+    /// <summary>
+    /// Die Speicher-ID für den Trigger, die verhindert, dass
+    /// ein Trigger mehrmals nacheinander auslöst.
+    /// </summary>
+    public string ID = "";
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Jetzt speichern!");
-        SaveGameData saveGame = new SaveGameData();
-        saveGame.Save();
+        SaveGameData saveGame = SaveGameData.current;
+
+        if(saveGame.lastTriggerID != ID)
+        {
+            Debug.Log("Jetzt speichern!");
+            saveGame.lastTriggerID = ID;
+            saveGame.Save();
+        }
+        else
+        {
+            Debug.Log("Dieser Speicherpunkt hat bereits zuletzt gespeichert.");
+        }
     }
 
     private void OnDrawGizmos()
