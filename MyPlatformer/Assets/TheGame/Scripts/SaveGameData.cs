@@ -30,6 +30,11 @@ public class SaveGameData
     public string lastTriggerID = "";
 
     /// <summary>
+    /// Name der Scene, in der sich die Spielfigur momentan befindet.
+    /// </summary>
+    public string recentScene = "";
+
+    /// <summary>
     /// Methoden, die sich in ein SaveEvent eintragen wollen,
     /// müssen von dieser Form sein.
     /// </summary>
