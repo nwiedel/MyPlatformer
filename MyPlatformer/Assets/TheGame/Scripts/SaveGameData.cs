@@ -73,9 +73,6 @@ public class SaveGameData
     {
         Debug.Log("Speichere Spielstand! " + GetFilename());
 
-        Player player = Component.FindObjectOfType<Player>();
-        playerPosition = player.transform.position;
-
         if(onSave != null) 
             onSave(this);
 
@@ -98,9 +95,6 @@ public class SaveGameData
         Debug.Log("Lade Spielstand! " + GetFilename());
 
         SaveGameData save = XML.Load<SaveGameData>(File.ReadAllText(GetFilename()));
-
-        Player player = Component.FindObjectOfType<Player>();
-        player.transform.position = save.playerPosition;
 
         if (onLoad != null)
         {
