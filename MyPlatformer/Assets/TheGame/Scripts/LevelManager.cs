@@ -10,9 +10,24 @@ public class LevelManager : MonoBehaviour
         SaveGameData.current = SaveGameData.Load();
     }
 
+    private void Start()
+    {
+        LoadScene(SaveGameData.current.recentScene);
+    }
+
     public void LoadScene(string name)
     {
-        Debug.Log("Lade jetzt Scene: " + name);
+        if (name == "")
+        {
+            return;
+        }
+
+        for (int i = SceneManager.sceneCount - 1; i > 0; i--)
+        {
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i).name);
+        }
+
+            Debug.Log("Lade jetzt Scene: " + name);
         SceneManager.LoadScene(name, LoadSceneMode.Additive);
     }
 
