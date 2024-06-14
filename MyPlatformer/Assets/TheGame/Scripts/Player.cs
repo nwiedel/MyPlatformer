@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using UnityEditor.Timeline;
 
 /// <summary>
 /// Steuerung der Spielfigur
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : Savable
 {
     /// <summary>
     /// Laufgeschwindigkeit des Players.
@@ -49,12 +51,18 @@ public class Player : MonoBehaviour
     /// </summary>
     private bool onGround = false;
 
-    private void Start()
+    /// <summary>
+    /// Das Ziel, das die Kamera verfolgt.
+    /// Normalerweise ist das der Hüftknochen.
+    /// </summary>
+    public GameObject cameraTarget;
+
+    protected override void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
 
-        loadme(SaveGameData.current);
+        base.Start();
     }
 
     // Update is called once per frame
@@ -101,31 +109,35 @@ public class Player : MonoBehaviour
         Gizmos.DrawLine(rayStartPosition, rayStartPosition + Vector3.down * 0.12f);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        SaveGameData.onSave += saveme;
-        SaveGameData.onLoad += loadme;
+        base.Awake();
+    
+        CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
+        if (cvc != null)
+        {
+            cvc.Follow = transform;
+            cvc.LookAt = cameraTarget.transform;
+        }
     }
 
-    private void saveme(SaveGameData savegame)
+    protected override void saveme(SaveGameData savegame)
     {
+        base.saveme(savegame);
+
         savegame.playerPosition = transform.position;
         savegame.recentScene = gameObject.scene.name;
     }
 
-    private void loadme(SaveGameData savegame)
+    protected override void loadme(SaveGameData savegame)
     {
+        base.loadme(savegame);
+
         // Nur wenn die geladeneScene die ist, in der zuletzt gespeichert wurde....
         if(savegame.recentScene == gameObject.scene.name)
         {
             // .... dann stelle die gespeicherte Spielerposition wieder her.
             transform.position = savegame.playerPosition;
         }
-    }
-
-    private void OnDestroy()
-    {
-        SaveGameData.onLoad -= loadme;
-        SaveGameData.onSave -= saveme;
     }
 }

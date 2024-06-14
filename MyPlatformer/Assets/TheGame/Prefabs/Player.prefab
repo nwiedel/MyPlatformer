@@ -100,6 +100,7 @@ MonoBehaviour:
   speed: 0.08
   jumpPush: 10
   model: {fileID: 6475935663600330897}
+  cameraTarget: {fileID: 6475935663600330953}
 --- !u!1001 &6475935663600430689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -209,5 +210,10 @@ Transform:
 --- !u!1 &6475935663600330897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100080, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
+  m_PrefabInstance: {fileID: 6475935663600430689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6475935663600330953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 26b8c4b65e574e34b812fa9b7a9b37f2, type: 3}
   m_PrefabInstance: {fileID: 6475935663600430689}
   m_PrefabAsset: {fileID: 0}

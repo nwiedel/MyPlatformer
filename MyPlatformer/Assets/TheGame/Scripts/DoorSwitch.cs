@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorSwitch : MonoBehaviour
-{
+public class DoorSwitch : Savable
+{ 
     /// <summary>
     /// Verweis auf den Animator der DoorMetal
     /// </summary>
@@ -33,46 +33,25 @@ public class DoorSwitch : MonoBehaviour
         meshRenderer.materials = mats;
     }
 
-    private void Awake()
+    protected override void saveme(SaveGameData savegame)
     {
-        SaveGameData.onSave += saveme;
-        SaveGameData.onLoad += loadme;
-    }
+        base.saveme(savegame);
 
-    private void Start()
-    {
-        loadme(SaveGameData.current);
-    }
-
-    private void saveme(SaveGameData savegame)
-    {
         savegame.doorIsOpen = doorAnimator.GetBool("isOpen");
     }
 
-    private void loadme(SaveGameData savegame)
+    protected override void loadme(SaveGameData savegame)
     {
+        base.loadme(savegame);
+
         Debug.Log("DoorSwitch load!");
         if (savegame.doorIsOpen)
             OpenTheDoor();
     }
 
-    private void OnDestroy()
-    {
-        SaveGameData.onLoad -= loadme;
-        SaveGameData.onSave -= saveme;
-    }
-
     private void OnDrawGizmos()
     {
-        if (UnityEditor.Selection.activeGameObject != this.gameObject)
-        {
-            Gizmos.color = Color.magenta;
-            Matrix4x4 oldMatrix = Gizmos.matrix;
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.DrawWireCube(GetComponent<BoxCollider>().center,
-                GetComponent<BoxCollider>().size);
-            Gizmos.matrix = oldMatrix;
-        }
+        Utils.DrawBoxCollider(this, Color.green);
 
     }
 }

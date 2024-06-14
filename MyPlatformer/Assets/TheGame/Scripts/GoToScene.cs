@@ -18,4 +18,9 @@ public class GoToScene : MonoBehaviour
             lm.LoadScene(scene);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Utils.DrawBoxCollider(this, Color.red);
+    }
 }
