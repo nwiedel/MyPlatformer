@@ -68,6 +68,12 @@ public class Player : Savable
     // Update is called once per frame
     private void Update()
     {
+        // wenn im Menü, dann update abbrechen.
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
+
         // Speichert den Input
         float horizontalInput = Input.GetAxis("Horizontal");
         anim.SetFloat("forward", Mathf.Abs(horizontalInput));

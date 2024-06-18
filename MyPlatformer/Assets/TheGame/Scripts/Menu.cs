@@ -5,6 +5,11 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
     /// <summary>
+    /// Wurzelelemnt, das das gesamte Menü ein- und ausblendet.
+    /// </summary>
+    public GameObject menuRoot;
+
+    /// <summary>
     /// Wahr, wenn Taste bereits zuvor als gedrückt erkannt wurde.
     /// Nötig, um Mehrfachauswertungen der Menütaste zu verhindern.
     /// </summary>
@@ -13,7 +18,7 @@ public class Menu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Canvas>().enabled = false;
+        menuRoot.SetActive(false);
     }
 
     // Update is called once per frame
@@ -23,7 +28,17 @@ public class Menu : MonoBehaviour
         {
             if (!keyWasPressed)
             {
-                GetComponent<Canvas>().enabled = !GetComponent<Canvas>().enabled;
+                menuRoot.SetActive(!menuRoot.activeSelf);
+
+                Time.timeScale = menuRoot.activeSelf ? 0f : 1f; // kürzer für unten
+                //if (canvas.enabled)
+                //{
+                //    Time.timeScale = 0f;
+                //}
+                //else
+                //{
+                //    Time.timeScale = 1f;
+                //}
             }
             keyWasPressed = true;
         }
@@ -44,7 +59,8 @@ public class Menu : MonoBehaviour
         LevelManager lm = FindObjectOfType<LevelManager>();
         lm.LoadScene("Scene1");
 
-        GetComponent<Canvas>().enabled = false;
+        menuRoot.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     /// <summary>
