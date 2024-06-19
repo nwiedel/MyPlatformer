@@ -68,6 +68,16 @@ public class Player : Savable
     // Update is called once per frame
     private void Update()
     {
+        if(transform.position.y < -2f) // wenn der Spieler runterfällt -> sterben
+        {
+            SaveGameData.current = SaveGameData.Load();
+            LevelManager lm = FindAnyObjectByType<LevelManager>();
+            lm.LoadScene(SaveGameData.current.recentScene);
+
+            enabled = false;
+            return;
+        }
+
         // wenn im Menü, dann update abbrechen.
         if (Time.timeScale == 0f)
         {
