@@ -70,9 +70,15 @@ public class Player : Savable
     {
         if(transform.position.y < -2f) // wenn der Spieler runterfällt -> sterben
         {
-            SaveGameData.current = SaveGameData.Load();
-            LevelManager lm = FindAnyObjectByType<LevelManager>();
-            lm.LoadScene(SaveGameData.current.recentScene);
+            ScreenFader sf = FindObjectOfType<ScreenFader>();
+            sf.FadeOut(true);
+
+            CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
+            if (cvc != null)
+            {
+                cvc.Follow = null;
+                cvc.LookAt = null;
+            }
 
             enabled = false;
             return;
