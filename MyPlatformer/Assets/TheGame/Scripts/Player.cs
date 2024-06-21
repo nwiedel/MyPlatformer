@@ -63,15 +63,35 @@ public class Player : Savable
         anim = GetComponentInChildren<Animator>();
 
         base.Start();
+
+        SetRagdollMode(false);
     }
 
-    // Update is called once per frame
-    private void Update()
+    /// <summary>
+    /// Aktiviert oder deaktiviert die Gliederpuppen-Simulation.
+    /// </summary>
+    /// <param name="isDead">Wenn true, dann ist Ragdoll aktiv, sonst der interaktive Spielmodus</param>
+    private void SetRagdollMode(bool isDead)
     {
-        if(transform.position.y < -2f) // wenn der Spieler runterfällt -> sterben
+        // 1st!
+        foreach(Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = isDead;
+        }
+        foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>())
+        {
+            rb.isKinematic = !isDead;
+        }
+
+        // 2nd!
+        GetComponent<Rigidbody>().isKinematic = isDead;
+        GetComponent<Collider>().enabled = !isDead;
+        GetComponentInChildren<Animator>().enabled = !isDead;
+
+        if (isDead)
         {
             ScreenFader sf = FindObjectOfType<ScreenFader>();
-            sf.FadeOut(true);
+            sf.FadeOut(true, 2f);
 
             CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera>();
             if (cvc != null)
@@ -81,6 +101,23 @@ public class Player : Savable
             }
 
             enabled = false;
+        }
+    }
+
+    /// <summary>
+    /// Lässt die Spilfigur sterben.
+    /// </summary>
+    public void LooseHealth()
+    {
+        SetRagdollMode(true);
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if(transform.position.y < -2f) // wenn der Spieler runterfällt -> sterben
+        {
+            LooseHealth();
             return;
         }
 

@@ -15,8 +15,20 @@ public class ScreenFader : MonoBehaviour
     /// </summary>
     public Image overlay;
 
-    private IEnumerator PerformFading(float toAlpha, bool revertToSaveGame)
+    /// <summary>
+    /// Führt das Ein- und Ausblenden des Schwarzbild durch.
+    /// </summary>
+    /// <param name="toAlpha">Zieltransparenz zwischen 0 und 1</param>
+    /// <param name="revertToSaveGame">wenn tru, wird nach dem Überblenden der letzte Spielstand geladen.</param>
+    /// <param name="delay">Anzahl der Sekunden, die gewartet werden soll, bevor das Überblenden startet.</param>
+    /// <returns></returns>
+    private IEnumerator PerformFading(float toAlpha, bool revertToSaveGame,
+        float delay)
     {
+        if(delay > 0)
+        {
+            yield return new WaitForSeconds(delay);
+        }
         overlay.CrossFadeAlpha(toAlpha, 1f, false);
 
         yield return new WaitForSeconds(1f);
@@ -33,18 +45,18 @@ public class ScreenFader : MonoBehaviour
     /// Blendet die Scene ein.
     /// </summary>
     /// <param name="revertToSaveGame"> Wenn true, wird nach dem Überblenden der letzte Spielstand geladen</param>
-    public void FadeIn(bool revertToSaveGame)
+    public void FadeIn(bool revertToSaveGame, float delay = 0f)
     {
-        StartCoroutine(PerformFading(0f, revertToSaveGame));
+        StartCoroutine(PerformFading(0f, revertToSaveGame, delay));
     }
 
     /// <summary>
     /// Blendet die Scene aus.
     /// </summary>
     /// <param name="revertToSaveGame"> Wenn true, wird nach dem Überblenden der letzte Spielstand geladen</param> 
-    public void FadeOut(bool revertToSaveGame)
+    public void FadeOut(bool revertToSaveGame, float delay = 0f)
     {
-        StartCoroutine(PerformFading(1f, revertToSaveGame));
+        StartCoroutine(PerformFading(1f, revertToSaveGame, delay));
     }
 
     private void Awake()
