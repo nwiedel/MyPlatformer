@@ -58,6 +58,11 @@ public class Player : Savable
     /// </summary>
     public GameObject cameraTarget;
 
+    /// <summary>
+    /// Aktueller Gesunheitszustand in Prozent, 0 bis 1.
+    /// </summary>
+    public float health = 1f;
+
     protected override void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -110,7 +115,12 @@ public class Player : Savable
     /// </summary>
     public void LooseHealth()
     {
-        SetRagdollMode(true);
+        health -= 0.2f;
+
+        if(health <= 0f)
+        {
+            SetRagdollMode(true);
+        }
     }
 
     // Update is called once per frame
