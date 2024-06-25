@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEditor.Timeline;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Steuerung der Spielfigur
@@ -150,7 +151,13 @@ public class Player : Savable
         onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f),
             Vector3.down,
             out hitInfo,
-            0.12f);
+            0.25f);
+
+        if(onGround && Vector3.Angle(Vector3.up, hitInfo.normal) > 10) // rutscht
+        {
+            rb.AddForce(hitInfo.normal);
+        }
+
         anim.SetBool("grounded", onGround);
         if (Input.GetAxis("Jump") > 0 && onGround)
         {
