@@ -17,15 +17,27 @@ public class SaveGameTrigger : MonoBehaviour
     {
         SaveGameData saveGame = SaveGameData.current;
 
-        if(saveGame.lastTriggerID != ID)
+        Player p = other.gameObject.GetComponent<Player>();
+        if(p == null) // kein Spieler
+        {
+            // Kollision mit anderem Objekt als Spieler ignorieren
+            return;
+        }
+
+        else if(p.health <= 0F) // Spieler schon Tod
+        {
+            Debug.Log("Der Spieler hat keine Lebenspunkte mehr. Nicht speichern.");
+        }
+
+        else if(saveGame.lastTriggerID == ID) // hier schon mal gespeichert
+        {
+            Debug.Log("Dieser Speicherpunkt hat bereits zuletzt gespeichert.");
+        }
+        else // wenn nichts dagegen spricht, speichern.
         {
             Debug.Log("Jetzt speichern!");
             saveGame.lastTriggerID = ID;
             saveGame.Save();
-        }
-        else
-        {
-            Debug.Log("Dieser Speicherpunkt hat bereits zuletzt gespeichert.");
         }
     }
 

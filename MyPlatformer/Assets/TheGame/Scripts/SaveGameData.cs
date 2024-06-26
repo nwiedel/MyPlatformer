@@ -19,6 +19,16 @@ public class SaveGameData
     public Vector3 playerPosition = Vector3.zero;
 
     /// <summary>
+    /// Die aktuelle Gesundheit des Spielers.
+    /// </summary>
+    public float playerHealth = 1f;
+
+    /// <summary>
+    /// Liste der IDs aller HealthOrbs, die eingesammelt wurden.
+    /// </summary>
+    public List<string> disabledHealthOrbs = new List<string>();
+
+    /// <summary>
     /// Referenz des Zustandes der Tür.
     /// </summary>
     public bool doorIsOpen = false;

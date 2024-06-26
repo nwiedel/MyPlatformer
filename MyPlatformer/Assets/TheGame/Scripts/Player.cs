@@ -203,6 +203,7 @@ public class Player : Savable
 
         savegame.playerPosition = transform.position;
         savegame.recentScene = gameObject.scene.name;
+        savegame.playerHealth = health;
     }
 
     protected override void loadme(SaveGameData savegame)
@@ -215,5 +216,6 @@ public class Player : Savable
             // .... dann stelle die gespeicherte Spielerposition wieder her.
             transform.position = savegame.playerPosition;
         }
+        health = Mathf.Clamp01(savegame.playerHealth);
     }
 }
