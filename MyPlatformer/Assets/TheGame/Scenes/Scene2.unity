@@ -580,6 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2fc668c6163b7439af813cbfe9c1a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: sz2-fass1
 --- !u!1 &1537091489
 GameObject:
   m_ObjectHideFlags: 0

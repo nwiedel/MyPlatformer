@@ -28,10 +28,34 @@ public class SaveGameData
     /// </summary>
     public List<string> disabledHealthOrbs = new List<string>();
 
+    [Serializable]
+    public class BarrelData
+    {
+        public string ID = "";
+        public Vector3 position = Vector3.zero;
+    }
+
     /// <summary>
-    /// Die aktuelle Position des Fasses
+    /// Die aktuelle Positionen des Fasses
     /// </summary>
-    public Vector3 barrelPosition = Vector3.zero;
+    public List<BarrelData> barrelData = new List<BarrelData>();
+
+    /// <summary>
+    /// Sucht die gespeicherten Daten für das Fass mit der gegebenen ID
+    /// </summary>
+    /// <param name="ID">ID des gesuchten Fasses</param>
+    /// <returns>Datensatz für das Fass mit der gegebenen ID oder null, wenn nicht vorhanden</returns>
+    public BarrelData FindBarrelDataByID(string ID)
+    {
+        foreach(BarrelData bd in barrelData)
+        {
+            if(bd.ID == ID)
+            {
+                return bd;
+            }
+        }
+        return null;
+    }
 
     /// <summary>
     /// Referenz des Zustandes der Tür.

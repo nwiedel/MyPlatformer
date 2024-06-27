@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Barrel : Savable
 {
+    public string ID = "";
+
     /// <summary>
     /// Indikator, ob das Laden des Fasses beendet ist.
     /// </summary>
@@ -19,6 +21,12 @@ public class Barrel : Savable
         base.Start();
 
         rb = GetComponent<Rigidbody>();
+
+        if(ID == "")
+        {
+            Debug.LogWarning("Das Fass " + gameObject + " braucht noch eine ID.");
+        }
+
         if(loadingComplete && rb.velocity.magnitude < 0.1f) // wenn geladen + Fass gestoppt
         {
             GetComponent<Danger>().enabled = false;
@@ -29,16 +37,24 @@ public class Barrel : Savable
     {
         base.saveme(savegame);
 
-        savegame.barrelPosition = transform.position;
+        SaveGameData.BarrelData data = savegame.FindBarrelDataByID(ID);
+        if(data == null)
+        {
+            data = new SaveGameData.BarrelData();
+            savegame.barrelData.Add(data);
+        }
+        data.ID = ID;
+        data.position = transform.position;
     }
 
     protected override void loadme(SaveGameData savegame)
     {
         base.loadme(savegame);
 
-        if(savegame.barrelPosition != Vector3.zero)
+        SaveGameData.BarrelData data = savegame.FindBarrelDataByID(ID);
+        if(data != null) // wenn gespeicherter Wert vorhanden
         {
-            transform.position = savegame.barrelPosition;
+            transform.position = data.position;
         }
         loadingComplete = true;
     }
