@@ -29,6 +29,11 @@ public class SaveGameData
     public List<string> disabledHealthOrbs = new List<string>();
 
     /// <summary>
+    /// Die aktuelle Position des Fasses
+    /// </summary>
+    public Vector3 barrelPosition = Vector3.zero;
+
+    /// <summary>
     /// Referenz des Zustandes der Tür.
     /// </summary>
     public bool doorIsOpen = false;
