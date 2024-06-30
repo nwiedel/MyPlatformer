@@ -176,6 +176,12 @@ public class Player : Savable
             rb.velocity = power;
         }
         rb.AddForce(new Vector3(0f, extraGravity, 0f));
+
+        // Schießen
+        if(Input.GetAxisRaw("Fire2") > 0)
+        {
+            GetComponentInChildren<Gun>().Shoot();
+        }
     }
 
     private void OnDrawGizmos()

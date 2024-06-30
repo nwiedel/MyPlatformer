@@ -25,14 +25,18 @@ public class Barrel : Savable
         if(ID == "")
         {
             Debug.LogWarning("Das Fass " + gameObject + " braucht noch eine ID.");
-        }
+        } 
+    }
 
-        if(loadingComplete && rb.velocity.magnitude < 0.1f) // wenn geladen + Fass gestoppt
+    private void Update()
+    {
+        if (loadingComplete && rb.velocity.magnitude < 0.1f) // wenn geladen + Fass gestoppt
         {
             GetComponent<Danger>().enabled = false;
             this.enabled = false;
         }
     }
+
     protected override void saveme(SaveGameData savegame)
     {
         base.saveme(savegame);

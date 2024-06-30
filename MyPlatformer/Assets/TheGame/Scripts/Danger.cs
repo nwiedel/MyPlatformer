@@ -9,6 +9,7 @@ public class Danger : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
+
         if (!enabled) // wenn das Scriptinaktiv ist, nicht auf Kollision reagieren.
         {
             return;
