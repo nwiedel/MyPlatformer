@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2962212706793426028}
   - component: {fileID: 3606911270726159514}
   - component: {fileID: 3541716213739063207}
+  - component: {fileID: 7622733293986278682}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -133,6 +134,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7622733293986278682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108322250264838158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479811c4dee45fa4095cd45c97dae82c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8116521868244980124
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,14 +304,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: f6381c376e348c34baca13bb2bfc59da, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2136036316586282177}
+      addedObject: {fileID: 6407507584438441005}
   m_SourcePrefab: {fileID: 100100000, guid: f6381c376e348c34baca13bb2bfc59da, type: 3}
 --- !u!1 &1127718440750095302 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f6381c376e348c34baca13bb2bfc59da, type: 3}
   m_PrefabInstance: {fileID: 1127718440750062950}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2136036316586282177
+--- !u!114 &6407507584438441005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

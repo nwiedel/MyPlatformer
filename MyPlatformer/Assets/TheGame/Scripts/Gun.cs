@@ -60,7 +60,7 @@ public class Gun : MonoBehaviour
 
         playerAnim.SetTrigger("gunShot");
         fireLight.enabled = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         fireLight.enabled = false;
         
         shotDone = true;
