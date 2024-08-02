@@ -9,14 +9,14 @@ public class Danger : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (!enabled) // wenn das Scriptinaktiv ist, nicht auf Kollision reagieren.
+        if (!enabled) // wenn das Script inaktiv ist, nicht auf Kollision reagieren.
         {
             return;
         }
 
         Player p = collision.gameObject.GetComponent<Player>();
-        if(p != null) // Kollision war mit Spieler.
+        Debug.Log("Kollision mit: " + p.gameObject.name);
+        if (p != null) // Kollision war mit Spieler.
         {
             p.LooseHealth();
         }

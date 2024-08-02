@@ -82,11 +82,13 @@ public class Player : Savable
         // 1st!
         foreach(Collider c in GetComponentsInChildren<Collider>())
         {
-            c.enabled = isDead;
+            if(c.gameObject.name.StartsWith("mixamorig:")) // nur wenn dies ein Knochen ist
+                c.enabled = isDead;
         }
         foreach(Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
-            rb.isKinematic = !isDead;
+            if(rb.gameObject.name.StartsWith("mixamorig:")) // nur wenn dies ein Knochen ist
+                rb.isKinematic = !isDead;
         }
 
         // 2nd!

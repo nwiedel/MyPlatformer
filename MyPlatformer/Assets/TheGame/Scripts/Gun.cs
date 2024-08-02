@@ -60,8 +60,11 @@ public class Gun : MonoBehaviour
 
         playerAnim.SetTrigger("gunShot");
         fireLight.enabled = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         fireLight.enabled = false;
+
+        while(playerAnim.GetCurrentAnimatorStateInfo(1).IsName("gunShot"))
+            yield return new WaitForEndOfFrame();
         
         shotDone = true;
     }

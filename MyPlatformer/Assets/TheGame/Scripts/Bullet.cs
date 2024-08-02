@@ -12,11 +12,16 @@ public class Bullet : MonoBehaviour
     {
         GetComponent<Rigidbody>().velocity = 
             Vector3.forward * (transform.rotation.z < 0f ? 5f : -5f);
-        Debug.Log("Rotation y: " + transform.rotation.z);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        BulletCatcher bc = collision.gameObject.GetComponent<BulletCatcher>();
+        if(bc != null)
+        {
+            bc.OnHitBullet();
+        }
+
         Destroy(gameObject); // Die Kugel wird zertört,wenn sie irgendwo auftrift.
     }
 }
