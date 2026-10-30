@@ -6,6 +6,10 @@ public class GameConfig {
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 480;
 
+    /** HUD Größe entspricht der Fenstergröße */
+    public static final int HUD_WIDTH = WINDOW_WIDTH;
+    public static final int HUD_HEIGHT = WINDOW_HEIGHT;
+
     /** Spielewelt größe und die größe einer Einheit*/
     public static final float WORLD_WIDTH = 25f;
     public static final float WORLD_HEIGHT = 15f;
