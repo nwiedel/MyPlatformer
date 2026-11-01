@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.myplatformer.MyGame;
@@ -51,5 +52,67 @@ public class LoadingScreen extends ScreenAdapter {
         //  TODO Ladevorgänge!
         assetManager.setLoader(TiledMap.class, new TmxMapLoader());
         assetManager.load(AssetDescriptors.LEVEL_1);
+    }
+
+    @Override
+    public void render(float delta) {
+
+        // updaten des Ladescreens
+        update(delta);
+
+        // Screen löschen
+        ScreenUtils.clear(GameConfig.CORNFLOWER_BLUE);
+
+        viewport.apply();
+
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        draw();
+        shapeRenderer.end();
+
+        if (changeScreen){
+            game.setScreens(MenuScreen.class);
+        }
+    }
+
+    /** Die Methode sorgt dafür, das nach dem Laden der Assets eine Verzögerung erzeugt wird. */
+    private void update(float delta) {
+
+        progress = assetManager.getProgress();
+
+        if (assetManager.update()) {
+            waitTime -= delta;
+            if (waitTime <= 0){
+                changeScreen = true;
+            }
+        }
+    }
+
+    /** Die Methode zeichnet den ProgressBar. */
+    private void draw() {
+
+        float progressBarX = (GameConfig.HUD_WIDTH - PROGRESS_BAR_WIDTH) / 2f;
+        float progressBarY = (GameConfig.HUD_HEIGHT - PROGRSS_BAR_HEIGHT) / 2f;
+
+        shapeRenderer.rect(progressBarX, progressBarY,
+            progress * PROGRESS_BAR_WIDTH, PROGRSS_BAR_HEIGHT);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+        viewport.update(width,height, true);
+    }
+
+    @Override
+    public void hide() {
+
+
+    }
+
+    @Override
+    public void dispose() {
+
+        shapeRenderer.dispose();
     }
 }

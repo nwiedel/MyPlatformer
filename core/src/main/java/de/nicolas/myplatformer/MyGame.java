@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.myplatformer.screens.GameScreen;
 import de.nicolas.myplatformer.screens.LoadingScreen;
+import de.nicolas.myplatformer.screens.MenuScreen;
 import de.nicolas.myplatformer.utils.GameConfig;
 
 import java.util.HashMap;
@@ -61,7 +62,9 @@ public class MyGame extends Game {
 
         // Screen Erstellung
         addScreen(new LoadingScreen(this));
+        addScreen(new MenuScreen(this));
         addScreen(new GameScreen(this));
+
 
         // Wechsel zum nächsten Screen
         setScreens(LoadingScreen.class);
