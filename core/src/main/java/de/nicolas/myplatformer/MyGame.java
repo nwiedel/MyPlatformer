@@ -49,7 +49,7 @@ public class MyGame extends Game {
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        // Variablen Initialiesierung
+        // Variablen Initialisierung
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
@@ -125,5 +125,9 @@ public class MyGame extends Game {
 
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public Viewport getViewport() {
+        return viewport;
     }
 }
